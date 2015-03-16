@@ -61,7 +61,14 @@ function timestampsPlugin(schema, options) {
       this[updatedAt] = new Date;
       this.save(callback)
     }
-
-}
+  }
+  
+  schema.post('save', function(document) {
+    if (document[createdAt].getTime() === document[updatedAt].getTime()) {
+      document.emit('create');
+    } else {
+      document.emit('update');
+    }
+  });
 
 module.exports = timestampsPlugin;
