@@ -56,7 +56,7 @@ function timestampsPlugin(schema, options) {
     });
   }
 
-  if(!schema.methods.hasOwnProperty('touch'))
+  if(!schema.methods.hasOwnProperty('touch')) {
     schema.methods.touch = function(callback){
       this[updatedAt] = new Date;
       this.save(callback)
@@ -70,5 +70,6 @@ function timestampsPlugin(schema, options) {
       document.emit('update');
     }
   });
+};
 
 module.exports = timestampsPlugin;
